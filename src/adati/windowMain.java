@@ -447,7 +447,8 @@ public class windowMain extends javax.swing.JFrame {
 //        
         BufferedImage tmp = imageSource.getSubimage(x, y, x2-x, y2-y);
         roiRect.clearRect(x, y, x2-x, y2-y);
-        this.repaint();
+        roiRect = imageSource.getGraphics();
+        imageSrc.paint(roiRect);
         setImageDest(tmp);
 //        imageSrc.repaint();
     }//GEN-LAST:event_Button_ROIActionPerformed
