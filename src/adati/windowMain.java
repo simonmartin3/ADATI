@@ -5,7 +5,9 @@
  */
 package adati;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -36,12 +38,15 @@ public class windowMain extends javax.swing.JFrame {
     BufferedImage imageFirst;
     BufferedImage imageSource;
     BufferedImage imageDestination;
+    Graphics roiRect;
     
     public void setBufferedSource(BufferedImage src){imageSource = src;}
     public void setBufferedDestination(BufferedImage src){imageDestination = src;}
     
     public BufferedImage getBufferedSource(){return imageSource;}
     public BufferedImage getBufferedDestination(){return imageDestination;}
+    
+    int x,y,x2,y2;
     
     public windowMain() {
         initComponents();
@@ -93,15 +98,30 @@ public class windowMain extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jScrollPane1MousePressed(evt);
+            }
+        });
+
         imageSrc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imageSrc.setText("No Image");
         imageSrc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        imageSrc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                imageSrcMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                imageSrcMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(imageSrc);
 
         imageDest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -130,7 +150,8 @@ public class windowMain extends javax.swing.JFrame {
             }
         });
 
-        ComboBoxZoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "5", "10" }));
+        ComboBoxZoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "5" }));
+        ComboBoxZoom.setToolTipText("");
         ComboBoxZoom.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ComboBoxZoomItemStateChanged(evt);
@@ -209,20 +230,20 @@ public class windowMain extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ButtonSetSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SpinnerWidth, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SpinnerHeight, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ButtonSetSize, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                            .addComponent(SpinnerWidth, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(SpinnerHeight, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Button_ROI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ButtonSetSizeBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                            .addComponent(jLabel3))
+                        .addGap(0, 27, Short.MAX_VALUE))
+                    .addComponent(ButtonSetSizeBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_ROI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,6 +277,9 @@ public class windowMain extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem4.setText("Save");
+        jMenu1.add(jMenuItem4);
+
         jMenuItem2.setText("Reset");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,14 +309,14 @@ public class windowMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -413,15 +437,19 @@ public class windowMain extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonSetSizeBoxActionPerformed
 
     private void Button_ROIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ROIActionPerformed
-        System.err.println(imageSrc.getVisibleRect().getX());
-        System.err.println(imageSrc.getVisibleRect().getY());
-        int x = (int) imageSrc.getVisibleRect().getX();
-        int y = (int) imageSrc.getVisibleRect().getY();
-        int width = (int) imageSrc.getVisibleRect().getWidth();
-        int height = (int) imageSrc.getVisibleRect().getHeight();
+//        System.err.println(imageSrc.getVisibleRect().getX());
+//        System.err.println(imageSrc.getVisibleRect().getY());
         
-        BufferedImage tmp = imageSource.getSubimage(x, y, width, height);
+//        int x = (int) imageSrc.getVisibleRect().getX();
+//        int y = (int) imageSrc.getVisibleRect().getY();
+//        int width = (int) imageSrc.getVisibleRect().getWidth();
+//        int height = (int) imageSrc.getVisibleRect().getHeight();
+//        
+        BufferedImage tmp = imageSource.getSubimage(x, y, x2-x, y2-y);
+        roiRect.clearRect(x, y, x2-x, y2-y);
+        this.repaint();
         setImageDest(tmp);
+//        imageSrc.repaint();
     }//GEN-LAST:event_Button_ROIActionPerformed
 
     private void ComboBoxZoomItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxZoomItemStateChanged
@@ -434,6 +462,26 @@ public class windowMain extends javax.swing.JFrame {
             BufferedImage tmp = convertToBuffered(tmpImage);
             setImageSrc(tmp);
     }//GEN-LAST:event_ComboBoxZoomItemStateChanged
+
+    private void jScrollPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MousePressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jScrollPane1MousePressed
+
+    private void imageSrcMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageSrcMouseReleased
+        // TODO add your handling code here:
+        System.out.println(evt.getX() + " " + evt.getY() );
+        x2 = evt.getX();
+        y2 = evt.getY();
+        drawRectangle();
+    }//GEN-LAST:event_imageSrcMouseReleased
+
+    private void imageSrcMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageSrcMousePressed
+        // TODO add your handling code here:
+        System.out.println(evt.getX() + " " + evt.getY() );
+        x = evt.getX();
+        y = evt.getY();
+    }//GEN-LAST:event_imageSrcMousePressed
 
     public void setImageSrc(BufferedImage src)
     {
@@ -466,6 +514,16 @@ public class windowMain extends javax.swing.JFrame {
 
         return bImage;
     }
+    
+    public void drawRectangle()
+    {
+        BufferedImage tmp = imageSource;
+        roiRect = tmp.getGraphics();    
+        roiRect.setColor(Color.RED);
+        roiRect.drawRect(x, y, x2-x, y2-y);
+        roiRect.dispose();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -523,6 +581,7 @@ public class windowMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
