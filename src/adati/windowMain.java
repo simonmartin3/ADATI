@@ -5,10 +5,22 @@
  */
 package adati;
 
+import java.awt.Component;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import static java.lang.Integer.parseInt;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.*;
 
 /**
@@ -20,11 +32,34 @@ public class windowMain extends javax.swing.JFrame {
     /**
      * Creates new form windowMAin
      */
+    
+    BufferedImage imageFirst;
+    BufferedImage imageSource;
+    BufferedImage imageDestination;
+    
+    public void setBufferedSource(BufferedImage src){imageSource = src;}
+    public void setBufferedDestination(BufferedImage src){imageDestination = src;}
+    
+    public BufferedImage getBufferedSource(){return imageSource;}
+    public BufferedImage getBufferedDestination(){return imageDestination;}
+    
     public windowMain() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Analyse design d'application et traitement d'image");
+        
+        Component[] componentsPanel1 = jPanel1.getComponents();
+        for(int i = 0; i < componentsPanel1.length; i++) {
+            componentsPanel1[i].setEnabled(false);
+        }
+        
+        Component[] componentsPanel2 = jPanel2.getComponents();
+        for(int i = 0; i < componentsPanel2.length; i++) {
+            componentsPanel2[i].setEnabled(false);
+        }
+        
+        
     }
 
     /**
@@ -36,10 +71,25 @@ public class windowMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imageDest = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         imageSrc = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        imageDest = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         TransfertSrcDest = new javax.swing.JButton();
+        Reset = new javax.swing.JButton();
         TransfertDestSrc = new javax.swing.JButton();
+        ComboBoxZoom = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        SpinnerWidth = new javax.swing.JSpinner();
+        SpinnerHeight = new javax.swing.JSpinner();
+        ButtonSetSize = new javax.swing.JButton();
+        ButtonSetSizeBox = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        Button_ROI = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -49,18 +99,27 @@ public class windowMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        imageDest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imageDest.setText("No Image");
-        imageDest.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-
         imageSrc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imageSrc.setText("No Image");
         imageSrc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jScrollPane1.setViewportView(imageSrc);
+
+        imageDest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imageDest.setText("No Image");
+        imageDest.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jScrollPane2.setViewportView(imageDest);
 
         TransfertSrcDest.setText("Source vers Destination ");
         TransfertSrcDest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TransfertSrcDestActionPerformed(evt);
+            }
+        });
+
+        Reset.setText("Remettre à zéro");
+        Reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetActionPerformed(evt);
             }
         });
 
@@ -70,6 +129,122 @@ public class windowMain extends javax.swing.JFrame {
                 TransfertDestSrcActionPerformed(evt);
             }
         });
+
+        ComboBoxZoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "5", "10" }));
+        ComboBoxZoom.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboBoxZoomItemStateChanged(evt);
+            }
+        });
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Zoom :");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TransfertSrcDest, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(TransfertDestSrc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(ComboBoxZoom, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Reset)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Reset)
+                .addGap(18, 18, 18)
+                .addComponent(TransfertSrcDest)
+                .addGap(18, 18, 18)
+                .addComponent(TransfertDestSrc)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ComboBoxZoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jLabel1.setText("Taille :");
+
+        ButtonSetSize.setText("Set size");
+        ButtonSetSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSetSizeActionPerformed(evt);
+            }
+        });
+
+        ButtonSetSizeBox.setText("Set Size box");
+        ButtonSetSizeBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSetSizeBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Width");
+
+        jLabel3.setText("Height");
+
+        Button_ROI.setText("ROI");
+        Button_ROI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ROIActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SpinnerWidth, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SpinnerHeight, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ButtonSetSize, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(Button_ROI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonSetSizeBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpinnerWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SpinnerHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ButtonSetSize)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ButtonSetSizeBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_ROI)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jMenu1.setText("File");
 
@@ -82,6 +257,11 @@ public class windowMain extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Reset");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
         jMenu1.add(jSeparator1);
 
@@ -105,27 +285,27 @@ public class windowMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(TransfertSrcDest)
-                        .addGap(18, 18, 18)
-                        .addComponent(TransfertDestSrc)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(imageSrc, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                        .addComponent(imageDest, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(imageDest, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(imageSrc, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TransfertSrcDest)
-                    .addComponent(TransfertDestSrc))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -137,18 +317,37 @@ public class windowMain extends javax.swing.JFrame {
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 	jfc.setDialogTitle("Select an image");
 	jfc.setAcceptAllFileFilterUsed(false);
+        jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 	FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG, PNG, BMP and GIF images", "jpg", "png", "bmp", "gif");
 	jfc.addChoosableFileFilter(filter);
 
 	int returnValue = jfc.showOpenDialog(null);
-        String path = null;
 	if (returnValue == JFileChooser.APPROVE_OPTION) {
-            path = jfc.getSelectedFile().getPath();
             System.out.println(jfc.getSelectedFile().getPath());
-	}
+            String path = jfc.getSelectedFile().getPath();
+            
+            try {
+                imageFirst = ImageIO.read(new File(path));
+            } catch (IOException ex) {
+                Logger.getLogger(windowMain.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            setImageSrc(imageFirst);
+            Component[] componentsPanel1 = jPanel1.getComponents();
+            for(int i = 0; i < componentsPanel1.length; i++) {
+                componentsPanel1[i].setEnabled(true);
+            }
 
-        ImageIcon icon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(imageSrc.getWidth(), imageSrc.getHeight(), Image.SCALE_DEFAULT));
-        imageSrc.setIcon(icon);
+            Component[] componentsPanel2 = jPanel2.getComponents();
+            for(int i = 0; i < componentsPanel2.length; i++) {
+                componentsPanel2[i].setEnabled(true);
+            }
+	}
+        else
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Une erreur est survenue lors de l'ouverture de l'image", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -156,13 +355,117 @@ public class windowMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void TransfertSrcDestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransfertSrcDestActionPerformed
-        imageDest.setIcon(imageSrc.getIcon());
+        if(imageSrc.getIcon() != null)
+        {
+            setImageDest(imageSource);
+        }
+        else {
+            JOptionPane.showMessageDialog(new JFrame(), "Pas d'image à transférer", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_TransfertSrcDestActionPerformed
 
     private void TransfertDestSrcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransfertDestSrcActionPerformed
-        imageSrc.setIcon(imageDest.getIcon());
+        
+        if(imageDest.getIcon() != null)
+        {
+            setImageSrc(imageDestination);
+        }
+        else {
+            JOptionPane.showMessageDialog(new JFrame(), "Pas d'image à transférer", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }  
     }//GEN-LAST:event_TransfertDestSrcActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        imageSrc.setIcon(null);
+        imageDest.setIcon(null);
+        imageSrc.setText("No image");
+        imageDest.setText("No image");
+        jPanel1.setEnabled(true);
+        jPanel2.setEnabled(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
+        imageDest.setIcon(null);
+        imageDest.setText("No image");
+        setImageSrc(imageFirst);
+    }//GEN-LAST:event_ResetActionPerformed
+
+    private void ButtonSetSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSetSizeActionPerformed
+        if(SpinnerHeight.getValue().equals(null) || SpinnerWidth.getValue().equals(null))
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Les valeurs entrées ne sont pas bonne.", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        else {            
+            Image tmpImage = imageSource.getSubimage(0, 0, imageSource.getWidth(), imageSource.getHeight());
+            tmpImage = tmpImage.getScaledInstance((int) SpinnerWidth.getValue(), (int) SpinnerHeight.getValue(), Image.SCALE_DEFAULT);
+
+            BufferedImage tmp = convertToBuffered(tmpImage);
+            setImageDest(tmp);
+        }
+    }//GEN-LAST:event_ButtonSetSizeActionPerformed
+
+    private void ButtonSetSizeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSetSizeBoxActionPerformed
+        Image tmpImage = imageSource.getSubimage(0, 0, imageSource.getWidth(), imageSource.getHeight());
+        tmpImage = tmpImage.getScaledInstance((int) imageSrc.getVisibleRect().getWidth(), (int) imageSrc.getVisibleRect().getHeight(), Image.SCALE_DEFAULT);
+        
+        BufferedImage tmp = convertToBuffered(tmpImage);
+        setImageDest(tmp);
+    }//GEN-LAST:event_ButtonSetSizeBoxActionPerformed
+
+    private void Button_ROIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ROIActionPerformed
+        System.err.println(imageSrc.getVisibleRect().getX());
+        System.err.println(imageSrc.getVisibleRect().getY());
+        int x = (int) imageSrc.getVisibleRect().getX();
+        int y = (int) imageSrc.getVisibleRect().getY();
+        int width = (int) imageSrc.getVisibleRect().getWidth();
+        int height = (int) imageSrc.getVisibleRect().getHeight();
+        
+        BufferedImage tmp = imageSource.getSubimage(x, y, width, height);
+        setImageDest(tmp);
+    }//GEN-LAST:event_Button_ROIActionPerformed
+
+    private void ComboBoxZoomItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxZoomItemStateChanged
+
+            int zoom = parseInt(ComboBoxZoom.getSelectedItem().toString());
+            System.err.println(zoom);
+            Image tmpImage = imageFirst.getSubimage(0, 0, imageFirst.getWidth(), imageFirst.getHeight());
+            tmpImage = tmpImage.getScaledInstance(imageFirst.getWidth()*zoom, imageFirst.getHeight()*zoom, Image.SCALE_DEFAULT);
+
+            BufferedImage tmp = convertToBuffered(tmpImage);
+            setImageSrc(tmp);
+    }//GEN-LAST:event_ComboBoxZoomItemStateChanged
+
+    public void setImageSrc(BufferedImage src)
+    {
+        imageSource = src;
+        imageSrc.setText("");
+        ImageIcon imageIcon = new ImageIcon(src);
+        imageSrc.setIcon(imageIcon);
+    }
+    
+    public void setImageDest(BufferedImage dest)
+    {
+        imageDestination = dest;
+        imageDest.setText("");
+        ImageIcon imageIcon = new ImageIcon(dest);
+        imageDest.setIcon(imageIcon);
+    }
+    
+    public BufferedImage convertToBuffered(Image img)
+    {
+        if (img instanceof BufferedImage)
+        {
+            return (BufferedImage) img;
+        }
+
+        BufferedImage bImage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D bGr = bImage.createGraphics();
+        bGr.drawImage(img, 0, 0, null);
+        bGr.dispose();
+
+        return bImage;
+    }
     /**
      * @param args the command line arguments
      */
@@ -200,15 +503,30 @@ public class windowMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonSetSize;
+    private javax.swing.JButton ButtonSetSizeBox;
+    private javax.swing.JButton Button_ROI;
+    private javax.swing.JComboBox<String> ComboBoxZoom;
+    private javax.swing.JButton Reset;
+    private javax.swing.JSpinner SpinnerHeight;
+    private javax.swing.JSpinner SpinnerWidth;
     private javax.swing.JButton TransfertDestSrc;
     private javax.swing.JButton TransfertSrcDest;
     private javax.swing.JLabel imageDest;
     private javax.swing.JLabel imageSrc;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
