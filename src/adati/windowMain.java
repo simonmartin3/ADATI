@@ -27,6 +27,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.*;
 import adati.ROI.*;
+import backend.Histogram;
+import java.awt.BorderLayout;
+import javax.swing.JDialog;
+import org.jfree.chart.*;
+import org.jfree.data.statistics.HistogramDataset;
+
 
 /**
  *
@@ -38,14 +44,15 @@ public class windowMain extends javax.swing.JFrame {
      * Creates new form windowMAin
      */
     
-    BufferedImage imageFirst;
-    BufferedImage imageSource;
-    BufferedImage imageDestination;
+    protected BufferedImage imageFirst;
+    protected BufferedImage imageSource;
+    protected BufferedImage imageDestination;
     Graphics roiRect;
     ROI tmpROI = new ROI();
+        
     
     public void setBufferedSource(BufferedImage src){imageSource = src;}
-    public void setBufferedDestination(BufferedImage src){imageDestination = src;}
+    public void setBufferedDestination(BufferedImage dest){imageDestination = dest;}
     
     public BufferedImage getBufferedSource(){return imageSource;}
     public BufferedImage getBufferedDestination(){return imageDestination;}
@@ -92,6 +99,9 @@ public class windowMain extends javax.swing.JFrame {
         TransfertDestSrc = new javax.swing.JButton();
         ComboBoxZoom = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        Button_Palette = new javax.swing.JButton();
+        Button_Histogram = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         SpinnerWidth = new javax.swing.JSpinner();
@@ -101,8 +111,7 @@ public class windowMain extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Button_ROI = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        Button_Palette = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -176,14 +185,12 @@ public class windowMain extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ComboBoxZoom, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Reset)
-                            .addComponent(TransfertSrcDest))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(TransfertDestSrc, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(TransfertDestSrc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TransfertSrcDest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                            .addComponent(Reset, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,9 +203,44 @@ public class windowMain extends javax.swing.JFrame {
                 .addComponent(TransfertDestSrc)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ComboBoxZoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        Button_Palette.setText("Palette");
+        Button_Palette.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_PaletteActionPerformed(evt);
+            }
+        });
+
+        Button_Histogram.setText("Show Histogram");
+        Button_Histogram.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_HistogramActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Button_Palette, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(Button_Histogram, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Button_Palette)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Histogram)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel1.setText("Taille :");
@@ -235,18 +277,17 @@ public class windowMain extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ButtonSetSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SpinnerWidth, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(SpinnerHeight, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(SpinnerHeight, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SpinnerWidth, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(ButtonSetSizeBox, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                            .addComponent(jLabel3)))
+                    .addComponent(ButtonSetSizeBox, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                     .addComponent(Button_ROI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -272,28 +313,15 @@ public class windowMain extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Button_Palette.setText("Palette");
-        Button_Palette.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Button_PaletteActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Button_Palette, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                .addContainerGap())
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Button_Palette)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
         );
 
         jMenu1.setText("File");
@@ -343,6 +371,8 @@ public class windowMain extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -360,8 +390,9 @@ public class windowMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -374,7 +405,7 @@ public class windowMain extends javax.swing.JFrame {
 	jfc.setDialogTitle("Select an image");
 	jfc.setAcceptAllFileFilterUsed(false);
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-	FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG, PNG, BMP and GIF images", "jpg", "png", "bmp", "gif");
+	FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG, BMP and GIF images", "jpg", "png", "bmp", "gif");
 	jfc.addChoosableFileFilter(filter);
 
 	int returnValue = jfc.showOpenDialog(null);
@@ -383,12 +414,13 @@ public class windowMain extends javax.swing.JFrame {
             String path = jfc.getSelectedFile().getPath();
             
             try {
-                imageFirst = ImageIO.read(new File(path));
+                imageFirst = convertToBuffered(ImageIO.read(new File(path)));
             } catch (IOException ex) {
                 Logger.getLogger(windowMain.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             setImageSrc(imageFirst);
+            
             Component[] componentsPanel1 = jPanel1.getComponents();
             for(int i = 0; i < componentsPanel1.length; i++) {
                 componentsPanel1[i].setEnabled(true);
@@ -512,17 +544,23 @@ public class windowMain extends javax.swing.JFrame {
         PD.setVisible(true);
     }//GEN-LAST:event_Button_PaletteActionPerformed
 
+    private void Button_HistogramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_HistogramActionPerformed
+        Histogram chart = new Histogram(imageFirst);
+        chart.pack( );
+        chart.setVisible(true);
+    }//GEN-LAST:event_Button_HistogramActionPerformed
+
     public void setImageSrc(BufferedImage src)
     {
-        imageSource = src;
+        setBufferedSource(src);
         imageSrc.setText("");
         ImageIcon imageIcon = new ImageIcon(src);
-        imageSrc.setIcon(imageIcon);
+        imageSrc.setIcon(imageIcon);  
     }
     
     public void setImageDest(BufferedImage dest)
     {
-        imageDestination = dest;
+        setBufferedDestination(dest);
         imageDest.setText("");
         ImageIcon imageIcon = new ImageIcon(dest);
         imageDest.setIcon(imageIcon);
@@ -583,6 +621,7 @@ public class windowMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonSetSize;
     private javax.swing.JButton ButtonSetSizeBox;
+    private javax.swing.JButton Button_Histogram;
     private javax.swing.JButton Button_Palette;
     private javax.swing.JButton Button_ROI;
     private javax.swing.JComboBox<String> ComboBoxZoom;
@@ -592,7 +631,7 @@ public class windowMain extends javax.swing.JFrame {
     private javax.swing.JButton TransfertDestSrc;
     private javax.swing.JButton TransfertSrcDest;
     private javax.swing.JLabel imageDest;
-    private javax.swing.JLabel imageSrc;
+    public javax.swing.JLabel imageSrc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -606,6 +645,7 @@ public class windowMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    public javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
