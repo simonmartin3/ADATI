@@ -21,6 +21,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.*;
 import backend.Histogram;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Label;
 import javafx.scene.chart.BubbleChart;
 
 
@@ -46,7 +49,10 @@ public class windowMain extends javax.swing.JFrame {
     
     public windowMain() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
+        this.setLocation(425, (height/2)-(this.getHeight()/2));
         this.setResizable(false);
         this.setTitle("Analyse design d'application et traitement d'image");
         
@@ -63,6 +69,11 @@ public class windowMain extends javax.swing.JFrame {
         Component[] componentsPanel3 = jPanel3.getComponents();
         for(int i = 0; i < componentsPanel3.length; i++) {
             componentsPanel3[i].setEnabled(false);
+        }
+        
+        Component[] componentsPanel4 = jPanel4.getComponents();
+        for(int i = 0; i < componentsPanel4.length; i++) {
+            componentsPanel4[i].setEnabled(false);
         }
         
     }
@@ -89,6 +100,11 @@ public class windowMain extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         Button_Palette = new javax.swing.JButton();
         Button_Histogram = new javax.swing.JButton();
+        Button_Expansion = new javax.swing.JButton();
+        TextField_X = new javax.swing.JTextField();
+        TextField_Y = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         SpinnerWidth = new javax.swing.JSpinner();
@@ -98,7 +114,10 @@ public class windowMain extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Button_ROI = new javax.swing.JButton();
+        Button_GreyScale = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        Button_Seuillage = new javax.swing.JButton();
+        TextField_SeuillageSimple = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -204,6 +223,29 @@ public class windowMain extends javax.swing.JFrame {
             }
         });
 
+        Button_Expansion.setText("Expansion / Extraction");
+        Button_Expansion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ExpansionActionPerformed(evt);
+            }
+        });
+
+        TextField_X.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        TextField_X.setText("0");
+        TextField_X.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        TextField_Y.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        TextField_Y.setText("0");
+        TextField_Y.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextField_YActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("X :");
+
+        jLabel6.setText("Y :");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -211,8 +253,17 @@ public class windowMain extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Button_Palette, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(Button_Histogram, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Button_Palette, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                    .addComponent(Button_Histogram, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_Expansion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TextField_Y, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(TextField_X))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -222,6 +273,16 @@ public class windowMain extends javax.swing.JFrame {
                 .addComponent(Button_Palette)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Button_Histogram)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Expansion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(TextField_X, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TextField_Y, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -252,6 +313,13 @@ public class windowMain extends javax.swing.JFrame {
             }
         });
 
+        Button_GreyScale.setText("GreyScale");
+        Button_GreyScale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_GreyScaleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -270,7 +338,8 @@ public class windowMain extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)))
                     .addComponent(ButtonSetSizeBox, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(Button_ROI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Button_ROI, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_GreyScale, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -292,18 +361,37 @@ public class windowMain extends javax.swing.JFrame {
                 .addComponent(ButtonSetSizeBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Button_ROI)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_GreyScale)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
+
+        Button_Seuillage.setText("Seuillage simple");
+        Button_Seuillage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_SeuillageActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Button_Seuillage, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(TextField_SeuillageSimple))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Button_Seuillage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TextField_SeuillageSimple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
@@ -422,6 +510,11 @@ public class windowMain extends javax.swing.JFrame {
             for(int i = 0; i < componentsPanel3.length; i++) {
                 componentsPanel3[i].setEnabled(true);
             }
+            
+            Component[] componentsPanel4 = jPanel4.getComponents();
+            for(int i = 0; i < componentsPanel4.length; i++) {
+                componentsPanel4[i].setEnabled(true);
+            }
 	}
         else
         {
@@ -458,10 +551,25 @@ public class windowMain extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         imageSrc.setIcon(null);
         imageDest.setIcon(null);
-        jPanel1.setEnabled(true);
-        jPanel2.setEnabled(true);
-        jPanel3.setEnabled(true);
-        jPanel4.setEnabled(true);
+        Component[] componentsPanel1 = jPanel1.getComponents();
+        for(int i = 0; i < componentsPanel1.length; i++) {
+            componentsPanel1[i].setEnabled(false);
+        }
+        
+        Component[] componentsPanel2 = jPanel2.getComponents();
+        for(int i = 0; i < componentsPanel2.length; i++) {
+            componentsPanel2[i].setEnabled(false);
+        }
+        
+        Component[] componentsPanel3 = jPanel3.getComponents();
+        for(int i = 0; i < componentsPanel3.length; i++) {
+            componentsPanel3[i].setEnabled(false);
+        }
+        
+        Component[] componentsPanel4 = jPanel4.getComponents();
+        for(int i = 0; i < componentsPanel4.length; i++) {
+            componentsPanel4[i].setEnabled(false);
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
@@ -550,37 +658,58 @@ public class windowMain extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_PaletteActionPerformed
 
     private void Button_HistogramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_HistogramActionPerformed
-        Histogram chart = new Histogram(getBufferedSource());
-        chart.pack( );
-        chart.setVisible(true);
+        Histogram histogram = new Histogram(this, false);
+        histogram.setVisible(true);
     }//GEN-LAST:event_Button_HistogramActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-//        JFileChooser fileChooser = new JFileChooser();
-//        
-//        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("jpg", "jpg"));
-//        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("png", "png"));
-//        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("bmp", "bmp"));
-//        
-//        fileChooser.setAcceptAllFileFilterUsed(false);
-//        fileChooser.setDialogTitle("Sauvegarder les modifications");
-//        File fileToSave = null;
-//        
-//        int userSelection = fileChooser.showSaveDialog(this);
-//        
-//        if(userSelection == JFileChooser.APPROVE_OPTION)
-//        {
-//            fileToSave = getSelectedFileWithExtention(fileChooser);
-//        }
         File file = new File("C:\\Users\\Simon\\Desktop\\out.jpg");
         try {
-            ImageIO.write(getBufferedSource(), "png", file);
+            ImageIO.write(getBufferedSource(), "jpg", file);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(new JFrame(), e.toString(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void Button_ExpansionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ExpansionActionPerformed
+        // TODO add your handling code here:
+        if(TextField_X.getText().equals("0") && TextField_Y.getText().equals("0"))
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Entrer un X ou un Y correct.", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            Expansion img = new Expansion(getBufferedSource(), Float.parseFloat(TextField_X.getText()), Float.parseFloat(TextField_Y.getText()));
+            setBufferedDestination(img.getExpansion());
+        }
+    }//GEN-LAST:event_Button_ExpansionActionPerformed
+
+    private void Button_GreyScaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_GreyScaleActionPerformed
+        // TODO add your handling code here:
+        GreyScale imgToGrey = new GreyScale(getBufferedSource());
+        setBufferedDestination(imgToGrey.getImgToGray());
+    }//GEN-LAST:event_Button_GreyScaleActionPerformed
+
+    private void TextField_YActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_YActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextField_YActionPerformed
+
+    private void Button_SeuillageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SeuillageActionPerformed
+        // TODO add your handling code here:
+        if(TextField_SeuillageSimple.getText().equals("0") || TextField_SeuillageSimple.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Entrer un seuillage correct.", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            SimpleThresholding st = new SimpleThresholding(getBufferedSource(), Integer.parseInt(TextField_SeuillageSimple.getText()));
+            setBufferedDestination(st.getSimpleThresholding());
+        }
+        
+        
+    }//GEN-LAST:event_Button_SeuillageActionPerformed
 
     
     public BufferedImage convertToBuffered(Image img)
@@ -661,13 +790,19 @@ public class windowMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonSetSize;
     private javax.swing.JButton ButtonSetSizeBox;
+    private javax.swing.JButton Button_Expansion;
+    private javax.swing.JButton Button_GreyScale;
     private javax.swing.JButton Button_Histogram;
     private javax.swing.JButton Button_Palette;
     private javax.swing.JButton Button_ROI;
+    private javax.swing.JButton Button_Seuillage;
     private javax.swing.JComboBox<String> ComboBoxZoom;
     private javax.swing.JButton Reset;
     private javax.swing.JSpinner SpinnerHeight;
     private javax.swing.JSpinner SpinnerWidth;
+    private javax.swing.JTextField TextField_SeuillageSimple;
+    private javax.swing.JTextField TextField_X;
+    private javax.swing.JTextField TextField_Y;
     private javax.swing.JButton TransfertDestSrc;
     private javax.swing.JButton TransfertSrcDest;
     private javax.swing.JLabel imageDest;
@@ -676,6 +811,8 @@ public class windowMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

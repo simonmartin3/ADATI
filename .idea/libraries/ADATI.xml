@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ADATI">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/ADATI.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
