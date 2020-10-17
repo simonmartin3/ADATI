@@ -5,6 +5,13 @@
  */
 package adati;
 
+import com.sun.javafx.tk.Toolkit;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Simon
@@ -14,9 +21,16 @@ public class paletteDialog extends javax.swing.JDialog {
     /**
      * Creates new form paletteDialog
      */
+    protected windowMain WM;
+    BufferedImage tmpBufferedImage;
+    
     public paletteDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        WM = (windowMain) parent;
+        
+        setImage(WM.getBufferedSource());
+        
     }
 
     /**
@@ -29,14 +43,31 @@ public class paletteDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jColorChooser1 = new javax.swing.JColorChooser();
-        jButton1 = new javax.swing.JButton();
+        ButtonAnnuler = new javax.swing.JButton();
+        LabelImage = new javax.swing.JLabel();
+        ButtonAppliquer = new javax.swing.JButton();
+        ButtonOK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ButtonAnnuler.setText("Annuler");
+        ButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ButtonAnnulerActionPerformed(evt);
+            }
+        });
+
+        ButtonAppliquer.setText("Appliquer");
+        ButtonAppliquer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonAppliquerActionPerformed(evt);
+            }
+        });
+
+        ButtonOK.setText("OK");
+        ButtonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonOKActionPerformed(evt);
             }
         });
 
@@ -47,26 +78,125 @@ public class paletteDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jColorChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ButtonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(ButtonAppliquer, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
+                    .addComponent(jColorChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 37, Short.MAX_VALUE)
+                        .addComponent(ButtonOK, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jColorChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jColorChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LabelImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ButtonAnnuler)
+                        .addComponent(ButtonOK))
+                    .addComponent(ButtonAppliquer)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAnnulerActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ButtonAnnulerActionPerformed
 
+    private void ButtonAppliquerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAppliquerActionPerformed
+        // TODO add your handling code here:
+        setImage(WM.getBufferedSource());
+        Color newColor = jColorChooser1.getColor();
+        setColor(newColor);
+    }//GEN-LAST:event_ButtonAppliquerActionPerformed
+
+    private void ButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOKActionPerformed
+        // TODO add your handling code here:
+        WM.setBufferedDestination(tmpBufferedImage);
+        this.dispose();
+    }//GEN-LAST:event_ButtonOKActionPerformed
+
+    private void setColor(Color newColor)
+    {
+        int pixel;
+        int r, g, b, a;
+        int newR, newG, newB, newA;
+        
+        newR = newColor.getRed();
+        newG = newColor.getGreen();
+        newB = newColor.getBlue();
+        newA = newColor.getAlpha();
+        
+        for(int i = 0; i < tmpBufferedImage.getWidth(); i++)
+        {
+            for(int j = 0; j < tmpBufferedImage.getHeight(); j++)
+            {
+                pixel = tmpBufferedImage.getRGB(i, j);
+                
+                a = (pixel >> 24)&0xff;
+                r = (pixel >> 16)&0xff;
+                g = (pixel >> 8)&0xff;
+                b = pixel&0xff;
+                
+                a+=newA;
+                if(a > 255)
+                    a = 255;
+                if(a < 0)
+                    a = 0;
+                
+                r+=newR;
+                if(r > 255)
+                    r = 255;
+                if(r < 0)
+                    r = 0;
+                
+                g+=newG;
+                if(g > 255)
+                    g = 255;
+                if(g < 0)
+                    g = 0;
+                
+                b+=newB;
+                if(b > 255)
+                    b = 255;
+                if(b < 0)
+                    b = 0;
+                
+                pixel = (a<<24) | (r<<16) | (g<<8) | b;
+                tmpBufferedImage.setRGB(i, j, pixel);
+            }
+        }
+        
+        setImage(tmpBufferedImage);        
+    }
+    
+    private void setImage(BufferedImage image)
+    {
+        tmpBufferedImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        Graphics g = tmpBufferedImage.getGraphics();
+        g.drawImage(image, 0, 0, this);
+        g.dispose();
+        
+        Image tmpImage = tmpBufferedImage.getSubimage(0, 0, tmpBufferedImage.getWidth(), tmpBufferedImage.getHeight());
+        tmpImage = tmpImage.getScaledInstance((int) LabelImage.getVisibleRect().getWidth(), (int) LabelImage.getVisibleRect().getHeight(), Image.SCALE_DEFAULT);
+
+        ImageIcon tmpIcon = new ImageIcon(tmpImage);
+        LabelImage.setIcon(tmpIcon);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -110,7 +240,10 @@ public class paletteDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton ButtonAnnuler;
+    private javax.swing.JButton ButtonAppliquer;
+    private javax.swing.JButton ButtonOK;
+    private javax.swing.JLabel LabelImage;
     private javax.swing.JColorChooser jColorChooser1;
     // End of variables declaration//GEN-END:variables
 }

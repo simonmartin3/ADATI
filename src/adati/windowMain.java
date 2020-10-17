@@ -5,7 +5,6 @@
  */
 package adati;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,25 +12,16 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.filechooser.*;
-import adati.ROI.*;
 import backend.Histogram;
-import java.awt.BorderLayout;
-import javax.swing.JDialog;
-import org.jfree.chart.*;
-import org.jfree.data.statistics.HistogramDataset;
+import javafx.scene.chart.BubbleChart;
 
 
 /**
@@ -47,13 +37,10 @@ public class windowMain extends javax.swing.JFrame {
     protected BufferedImage imageFirst;
     protected BufferedImage imageSource;
     protected BufferedImage imageDestination;
+    String path;
     Graphics roiRect;
     ROI tmpROI = new ROI();
         
-    
-    public void setBufferedSource(BufferedImage src){imageSource = src;}
-    public void setBufferedDestination(BufferedImage dest){imageDestination = dest;}
-    
     public BufferedImage getBufferedSource(){return imageSource;}
     public BufferedImage getBufferedDestination(){return imageDestination;}
     
@@ -122,12 +109,6 @@ public class windowMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jScrollPane1MousePressed(evt);
-            }
-        });
-
         imageSrc.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         imageSrc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         imageSrc.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,7 +146,8 @@ public class windowMain extends javax.swing.JFrame {
             }
         });
 
-        ComboBoxZoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "5" }));
+        ComboBoxZoom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0.5", "1", "2", "5" }));
+        ComboBoxZoom.setSelectedIndex(1);
         ComboBoxZoom.setToolTipText("");
         ComboBoxZoom.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -335,6 +317,11 @@ public class windowMain extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem4.setText("Save");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem2.setText("Reset");
@@ -411,7 +398,7 @@ public class windowMain extends javax.swing.JFrame {
 	int returnValue = jfc.showOpenDialog(null);
 	if (returnValue == JFileChooser.APPROVE_OPTION) {
             System.out.println(jfc.getSelectedFile().getPath());
-            String path = jfc.getSelectedFile().getPath();
+            path = jfc.getSelectedFile().getPath();
             
             try {
                 imageFirst = convertToBuffered(ImageIO.read(new File(path)));
@@ -419,7 +406,7 @@ public class windowMain extends javax.swing.JFrame {
                 Logger.getLogger(windowMain.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            setImageSrc(imageFirst);
+            setBufferedSource(imageFirst);
             
             Component[] componentsPanel1 = jPanel1.getComponents();
             for(int i = 0; i < componentsPanel1.length; i++) {
@@ -450,7 +437,7 @@ public class windowMain extends javax.swing.JFrame {
     private void TransfertSrcDestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransfertSrcDestActionPerformed
         if(imageSrc.getIcon() != null)
         {
-            setImageDest(imageSource);
+            setBufferedDestination(imageSource);
         }
         else {
             JOptionPane.showMessageDialog(new JFrame(), "Pas d'image à transférer", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -461,7 +448,7 @@ public class windowMain extends javax.swing.JFrame {
         
         if(imageDest.getIcon() != null)
         {
-            setImageSrc(imageDestination);
+            setBufferedSource(imageDestination);
         }
         else {
             JOptionPane.showMessageDialog(new JFrame(), "Pas d'image à transférer", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -473,11 +460,13 @@ public class windowMain extends javax.swing.JFrame {
         imageDest.setIcon(null);
         jPanel1.setEnabled(true);
         jPanel2.setEnabled(true);
+        jPanel3.setEnabled(true);
+        jPanel4.setEnabled(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
         imageDest.setIcon(null);
-        setImageSrc(imageFirst);
+        setBufferedSource(imageFirst);
     }//GEN-LAST:event_ResetActionPerformed
 
     private void ButtonSetSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSetSizeActionPerformed
@@ -490,7 +479,7 @@ public class windowMain extends javax.swing.JFrame {
             tmpImage = tmpImage.getScaledInstance((int) SpinnerWidth.getValue(), (int) SpinnerHeight.getValue(), Image.SCALE_DEFAULT);
 
             BufferedImage tmp = convertToBuffered(tmpImage);
-            setImageDest(tmp);
+            setBufferedSource(tmp);
         }
     }//GEN-LAST:event_ButtonSetSizeActionPerformed
 
@@ -499,29 +488,45 @@ public class windowMain extends javax.swing.JFrame {
         tmpImage = tmpImage.getScaledInstance((int) imageSrc.getVisibleRect().getWidth(), (int) imageSrc.getVisibleRect().getHeight(), Image.SCALE_DEFAULT);
         
         BufferedImage tmp = convertToBuffered(tmpImage);
-        setImageDest(tmp);
+        setBufferedSource(tmp);
     }//GEN-LAST:event_ButtonSetSizeBoxActionPerformed
 
     private void Button_ROIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ROIActionPerformed
-        BufferedImage tmp = imageSource.getSubimage(tmpROI.getXRoi(), tmpROI.getYRoi(), tmpROI.getWidthRoi(),tmpROI.getHeightRoi());
-        setImageDest(tmp);
+        if(tmpROI.getXRoi() == 0 || tmpROI.getYRoi() == 0 || tmpROI.getWidthRoi() == 0 || tmpROI.getHeightRoi() == 0)
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Selectionner une partie de l'image.", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            BufferedImage tmp = imageSource.getSubimage(tmpROI.getXRoi(), tmpROI.getYRoi(), tmpROI.getWidthRoi(),tmpROI.getHeightRoi());
+            setBufferedDestination(tmp);
+        }
+
     }//GEN-LAST:event_Button_ROIActionPerformed
 
     private void ComboBoxZoomItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxZoomItemStateChanged
 
-            int zoom = parseInt(ComboBoxZoom.getSelectedItem().toString());
-            System.err.println(zoom);
-            Image tmpImage = imageFirst.getSubimage(0, 0, imageFirst.getWidth(), imageFirst.getHeight());
-            tmpImage = tmpImage.getScaledInstance(imageFirst.getWidth()*zoom, imageFirst.getHeight()*zoom, Image.SCALE_DEFAULT);
-
+            int zoom = ComboBoxZoom.getSelectedIndex();
+            
+            Image tmpImage = imageSource.getSubimage(0, 0, imageSource.getWidth(), imageSource.getHeight());
+            
+            switch(zoom)
+            {
+                case 0: tmpImage = tmpImage.getScaledInstance(imageSource.getWidth()/2, imageSource.getHeight()/2, Image.SCALE_DEFAULT);
+                    break;
+                
+                case 1: tmpImage = tmpImage.getScaledInstance(imageSource.getWidth(), imageSource.getHeight(), Image.SCALE_DEFAULT);
+                    break;
+                
+                case 2: tmpImage = tmpImage.getScaledInstance(imageSource.getWidth()*2, imageSource.getHeight()*2, Image.SCALE_DEFAULT);
+                    break;
+                
+                case 3: tmpImage = tmpImage.getScaledInstance(imageSource.getWidth()*5, imageSource.getHeight()*5, Image.SCALE_DEFAULT);
+                    break;
+            }
+            
             BufferedImage tmp = convertToBuffered(tmpImage);
-            setImageSrc(tmp);
+            setBufferedSource(tmp);
     }//GEN-LAST:event_ComboBoxZoomItemStateChanged
-
-    private void jScrollPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MousePressed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jScrollPane1MousePressed
 
     private void imageSrcMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageSrcMouseReleased
         // TODO add your handling code here:
@@ -545,26 +550,38 @@ public class windowMain extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_PaletteActionPerformed
 
     private void Button_HistogramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_HistogramActionPerformed
-        Histogram chart = new Histogram(imageFirst);
+        Histogram chart = new Histogram(getBufferedSource());
         chart.pack( );
         chart.setVisible(true);
     }//GEN-LAST:event_Button_HistogramActionPerformed
 
-    public void setImageSrc(BufferedImage src)
-    {
-        setBufferedSource(src);
-        imageSrc.setText("");
-        ImageIcon imageIcon = new ImageIcon(src);
-        imageSrc.setIcon(imageIcon);  
-    }
-    
-    public void setImageDest(BufferedImage dest)
-    {
-        setBufferedDestination(dest);
-        imageDest.setText("");
-        ImageIcon imageIcon = new ImageIcon(dest);
-        imageDest.setIcon(imageIcon);
-    }
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+//        JFileChooser fileChooser = new JFileChooser();
+//        
+//        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("jpg", "jpg"));
+//        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("png", "png"));
+//        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("bmp", "bmp"));
+//        
+//        fileChooser.setAcceptAllFileFilterUsed(false);
+//        fileChooser.setDialogTitle("Sauvegarder les modifications");
+//        File fileToSave = null;
+//        
+//        int userSelection = fileChooser.showSaveDialog(this);
+//        
+//        if(userSelection == JFileChooser.APPROVE_OPTION)
+//        {
+//            fileToSave = getSelectedFileWithExtention(fileChooser);
+//        }
+        File file = new File("C:\\Users\\Simon\\Desktop\\out.jpg");
+        try {
+            ImageIO.write(getBufferedSource(), "png", file);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(new JFrame(), e.toString(), "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     
     public BufferedImage convertToBuffered(Image img)
     {
@@ -581,6 +598,29 @@ public class windowMain extends javax.swing.JFrame {
 
         return bImage;
     }
+    
+    public void setBufferedSource(BufferedImage src)
+    {
+        imageSource = new BufferedImage(src.getWidth(), src.getHeight(), src.getType()); 
+        Graphics g = imageSource.getGraphics();
+        g.drawImage(src, 0, 0, this);
+        g.dispose();
+        
+        ImageIcon imageIcon = new ImageIcon(src); 
+        imageSrc.setIcon(imageIcon);
+    }
+    
+    public void setBufferedDestination(BufferedImage dest)
+    { 
+        imageDestination = new BufferedImage(dest.getWidth(), dest.getHeight(), dest.getType()); 
+        Graphics g = imageDestination.getGraphics();
+        g.drawImage(dest, 0, 0, this);
+        g.dispose();
+        
+        ImageIcon imageIcon = new ImageIcon(dest); 
+        imageDest.setIcon(imageIcon);
+    }
+    
     
     /**
      * @param args the command line arguments

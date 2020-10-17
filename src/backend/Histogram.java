@@ -5,19 +5,11 @@
  */
 package backend;
 
-import java.awt.BorderLayout; 
 import java.awt.Color; 
-import java.awt.EventQueue; 
 import java.awt.Paint; 
-import java.awt.event.ActionEvent; 
-import java.awt.image.BufferedImage; 
-import java.awt.image.Raster; 
 import adati.windowMain;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
 import java.awt.image.Raster;
-import java.awt.image.WritableRaster;
-import java.util.Random;
 import javax.swing.JDialog;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -39,13 +31,12 @@ public class Histogram extends JDialog{
     windowMain WM;
     BufferedImage image;
     private XYBarRenderer renderer; 
-    private final int[] rouge = new int[256];
-    private final int[] vert = new int[256];
-    private final int[] bleu = new int[256];
+//    private final int[] rouge = new int[256];
+//    private final int[] vert = new int[256];
+//    private final int[] bleu = new int[256];
     
     public Histogram(BufferedImage img) {
         this.setTitle("Histogram");
-        this.setSize(300, 300);
         this.setResizable(false);
         image = img;
         JFreeChart HistogramChart = ChartFactory.createHistogram(
@@ -65,15 +56,15 @@ public class Histogram extends JDialog{
          new Color(0x800000ff, true) 
         }; 
         plot.setDrawingSupplier(new DefaultDrawingSupplier(
-         paintArray, 
-         DefaultDrawingSupplier.DEFAULT_FILL_PAINT_SEQUENCE, 
-         DefaultDrawingSupplier.DEFAULT_OUTLINE_PAINT_SEQUENCE, 
-         DefaultDrawingSupplier.DEFAULT_STROKE_SEQUENCE, 
-         DefaultDrawingSupplier.DEFAULT_OUTLINE_STROKE_SEQUENCE, 
-         DefaultDrawingSupplier.DEFAULT_SHAPE_SEQUENCE));
+            paintArray, 
+            DefaultDrawingSupplier.DEFAULT_FILL_PAINT_SEQUENCE, 
+            DefaultDrawingSupplier.DEFAULT_OUTLINE_PAINT_SEQUENCE, 
+            DefaultDrawingSupplier.DEFAULT_STROKE_SEQUENCE, 
+            DefaultDrawingSupplier.DEFAULT_OUTLINE_STROKE_SEQUENCE, 
+            DefaultDrawingSupplier.DEFAULT_SHAPE_SEQUENCE));
          
         ChartPanel chartPanel = new ChartPanel( HistogramChart );
-        chartPanel.setPreferredSize( new java.awt.Dimension( 300 , 300 ) );
+        chartPanel.setPreferredSize( new java.awt.Dimension( 500 , 500 ) );
         setContentPane( chartPanel );
     }
     
