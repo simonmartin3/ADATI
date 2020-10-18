@@ -52,7 +52,7 @@ public class windowMain extends javax.swing.JFrame {
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int width = gd.getDisplayMode().getWidth();
         int height = gd.getDisplayMode().getHeight();
-        this.setLocation(425, (height/2)-(this.getHeight()/2));
+        this.setLocation(450, (height/2)-(this.getHeight()/2));
         this.setResizable(false);
         this.setTitle("Analyse design d'application et traitement d'image");
         
@@ -118,6 +118,9 @@ public class windowMain extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         Button_Seuillage = new javax.swing.JButton();
         TextField_SeuillageSimple = new javax.swing.JTextField();
+        Button_SeuillageMulti = new javax.swing.JButton();
+        TextField_SeuillageMulti1 = new javax.swing.JTextField();
+        TextField_SeuillageMulti2 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -373,6 +376,13 @@ public class windowMain extends javax.swing.JFrame {
             }
         });
 
+        Button_SeuillageMulti.setText("Seuillage multiple");
+        Button_SeuillageMulti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_SeuillageMultiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -381,7 +391,10 @@ public class windowMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Button_Seuillage, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(TextField_SeuillageSimple))
+                    .addComponent(TextField_SeuillageSimple)
+                    .addComponent(Button_SeuillageMulti, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(TextField_SeuillageMulti1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TextField_SeuillageMulti2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -391,6 +404,12 @@ public class windowMain extends javax.swing.JFrame {
                 .addComponent(Button_Seuillage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TextField_SeuillageSimple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_SeuillageMulti)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TextField_SeuillageMulti1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TextField_SeuillageMulti2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -707,9 +726,20 @@ public class windowMain extends javax.swing.JFrame {
             SimpleThresholding st = new SimpleThresholding(getBufferedSource(), Integer.parseInt(TextField_SeuillageSimple.getText()));
             setBufferedDestination(st.getSimpleThresholding());
         }
-        
-        
     }//GEN-LAST:event_Button_SeuillageActionPerformed
+
+    private void Button_SeuillageMultiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SeuillageMultiActionPerformed
+        // TODO add your handling code here:
+        if(TextField_SeuillageMulti1.getText().equals("0") || TextField_SeuillageMulti1.getText().equals("") || TextField_SeuillageMulti2.getText().equals("0") || TextField_SeuillageMulti2.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Entrer un seuillage correct.", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            MultiThresholding mt = new MultiThresholding(getBufferedSource(), Integer.parseInt(TextField_SeuillageMulti1.getText()),Integer.parseInt(TextField_SeuillageMulti2.getText()));
+            setBufferedDestination(mt.getMultiThresholding());
+        }
+    }//GEN-LAST:event_Button_SeuillageMultiActionPerformed
 
     
     public BufferedImage convertToBuffered(Image img)
@@ -796,10 +826,13 @@ public class windowMain extends javax.swing.JFrame {
     private javax.swing.JButton Button_Palette;
     private javax.swing.JButton Button_ROI;
     private javax.swing.JButton Button_Seuillage;
+    private javax.swing.JButton Button_SeuillageMulti;
     private javax.swing.JComboBox<String> ComboBoxZoom;
     private javax.swing.JButton Reset;
     private javax.swing.JSpinner SpinnerHeight;
     private javax.swing.JSpinner SpinnerWidth;
+    private javax.swing.JTextField TextField_SeuillageMulti1;
+    private javax.swing.JTextField TextField_SeuillageMulti2;
     private javax.swing.JTextField TextField_SeuillageSimple;
     private javax.swing.JTextField TextField_X;
     private javax.swing.JTextField TextField_Y;

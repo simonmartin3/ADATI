@@ -477,6 +477,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="Button_Seuillage" pref="188" max="32767" attributes="0"/>
                       <Component id="TextField_SeuillageSimple" max="32767" attributes="0"/>
+                      <Component id="Button_SeuillageMulti" alignment="1" pref="188" max="32767" attributes="0"/>
+                      <Component id="TextField_SeuillageMulti1" alignment="1" max="32767" attributes="0"/>
+                      <Component id="TextField_SeuillageMulti2" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -489,6 +492,12 @@
                   <Component id="Button_Seuillage" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="TextField_SeuillageSimple" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_SeuillageMulti" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="TextField_SeuillageMulti1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="TextField_SeuillageMulti2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -504,6 +513,18 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="TextField_SeuillageSimple">
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_SeuillageMulti">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Seuillage multiple"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_SeuillageMultiActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="TextField_SeuillageMulti1">
+        </Component>
+        <Component class="javax.swing.JTextField" name="TextField_SeuillageMulti2">
         </Component>
       </SubComponents>
     </Container>
