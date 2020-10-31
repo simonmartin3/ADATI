@@ -76,6 +76,8 @@ public class Histogram extends javax.swing.JDialog {
 
         hightvalues.setText("  ");
 
+        histogram.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        histogram.setToolTipText("");
         histogram.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         Button_Refresh.setText("Refresh");
@@ -207,6 +209,7 @@ public class Histogram extends javax.swing.JDialog {
         {
             g2d.setColor(new Color(i, i, i));
             g2d.drawLine(i, histo.getHeight(), i, histo.getHeight() - (int) ((double)values[i]/values[highValue]*histo.getHeight()));
+
         }
         g2d.dispose();
         histogram.setIcon(new ImageIcon(histo));
