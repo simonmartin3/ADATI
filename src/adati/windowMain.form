@@ -76,17 +76,21 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jScrollPane1" min="-2" pref="550" max="-2" attributes="0"/>
-                      <EmptySpace pref="168" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="550" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -108,6 +112,8 @@
                   <Component id="jPanel3" max="32767" attributes="0"/>
                   <Component id="jPanel2" max="32767" attributes="0"/>
                   <Component id="jPanel4" max="32767" attributes="0"/>
+                  <Component id="jPanel5" max="32767" attributes="0"/>
+                  <Component id="jPanel6" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -475,11 +481,12 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="Button_Seuillage" pref="188" max="32767" attributes="0"/>
+                      <Component id="Button_Seuillage" pref="200" max="32767" attributes="0"/>
                       <Component id="TextField_SeuillageSimple" max="32767" attributes="0"/>
-                      <Component id="Button_SeuillageMulti" alignment="1" pref="188" max="32767" attributes="0"/>
+                      <Component id="Button_SeuillageMulti" alignment="1" pref="200" max="32767" attributes="0"/>
                       <Component id="TextField_SeuillageMulti1" alignment="1" max="32767" attributes="0"/>
                       <Component id="TextField_SeuillageMulti2" alignment="1" max="32767" attributes="0"/>
+                      <Component id="TextField_SeuillageMulti3" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -498,7 +505,9 @@
                   <Component id="TextField_SeuillageMulti1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="TextField_SeuillageMulti2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="TextField_SeuillageMulti3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="54" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -525,6 +534,192 @@
         <Component class="javax.swing.JTextField" name="TextField_SeuillageMulti1">
         </Component>
         <Component class="javax.swing.JTextField" name="TextField_SeuillageMulti2">
+        </Component>
+        <Component class="javax.swing.JTextField" name="TextField_SeuillageMulti3">
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel5">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="Button_Median" alignment="0" pref="200" max="32767" attributes="0"/>
+                      <Component id="Button_Moyen" max="32767" attributes="0"/>
+                      <Component id="Button_Gaussien" alignment="1" max="32767" attributes="0"/>
+                      <Component id="Button_Laplacien" alignment="1" max="32767" attributes="0"/>
+                      <Component id="Button_Kirsch" alignment="0" max="32767" attributes="0"/>
+                      <Component id="Button_Sobel" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Median" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Moyen" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Gaussien" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Laplacien" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Kirsch" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Sobel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="Button_Median">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Filtre m&#xe9;dian"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_MedianActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Moyen">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Filtre moyen"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_MoyenActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Gaussien">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Filtre gaussien"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_GaussienActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Laplacien">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Filtre laplacien"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_LaplacienActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Kirsch">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Filtre de Kirsch"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_KirschActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Sobel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Filtre de Sobel"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_SobelActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel6">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="Button_Prewitt" max="32767" attributes="0"/>
+                      <Component id="Button_Roberts" pref="194" max="32767" attributes="0"/>
+                      <Component id="Button_Erosion" alignment="0" max="32767" attributes="0"/>
+                      <Component id="Button_Dilatation" alignment="0" max="32767" attributes="0"/>
+                      <Component id="Button_Ouverture" alignment="0" max="32767" attributes="0"/>
+                      <Component id="Button_Fermeture" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Prewitt" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Roberts" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Erosion" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Dilatation" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Ouverture" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Fermeture" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="Button_Prewitt">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Filtre de Prewitt"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_PrewittActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Roberts">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Filtre de Roberts"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_RobertsActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Erosion">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Erosion"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_ErosionActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Dilatation">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Dilatation"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_DilatationActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Ouverture">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ouverture"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_OuvertureActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Fermeture">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Fermeture"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_FermetureActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -14,9 +14,9 @@ import java.awt.image.BufferedImage;
 public class MultiThresholding {
     BufferedImage img;
     
-    public MultiThresholding(BufferedImage src, int seuil1, int seuil2)
+    public MultiThresholding(BufferedImage src, int seuil1, int seuil2, int seuil3)
     {
-        img = src;
+        img = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB);
         
         int rgba;
         
@@ -26,9 +26,11 @@ public class MultiThresholding {
                 if((rgba & 0xFF) < seuil1)
                     img.setRGB(i, j, (rgba & 0xFF000000));
                 else if((rgba & 0xFF) > seuil2)
-                    img.setRGB(i, j, ((rgba & 0xFF000000) + 0xFFFFFF));
+                    img.setRGB(i, j, ((rgba & 0xFF000000) + 0x555555));
+                else if((rgba & 0xFF) > seuil3)
+                    img.setRGB(i, j, ((rgba & 0xFF000000) + 0xAAAAAA));
                 else
-                    img.setRGB(i, j, (rgba & 0xFF000000) + 0x7F7F7F); 
+                    img.setRGB(i, j, (rgba & 0xFF000000) + 0xFFFFFF); 
             }
         }
     }

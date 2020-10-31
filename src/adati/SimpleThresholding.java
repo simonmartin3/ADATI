@@ -17,7 +17,7 @@ public class SimpleThresholding {
     
     public SimpleThresholding(BufferedImage src, int tmp)
     {
-        img = src;
+        img = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB);
         
         int rgba;
         

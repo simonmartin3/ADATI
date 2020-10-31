@@ -5,6 +5,7 @@
  */
 package adati;
 
+import Filter.*;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -23,8 +24,7 @@ import javax.swing.filechooser.*;
 import backend.Histogram;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Label;
-import javafx.scene.chart.BubbleChart;
+
 
 
 /**
@@ -76,6 +76,16 @@ public class windowMain extends javax.swing.JFrame {
             componentsPanel4[i].setEnabled(false);
         }
         
+        Component[] componentsPanel5 = jPanel5.getComponents();
+        for(int i = 0; i < componentsPanel5.length; i++) {
+            componentsPanel5[i].setEnabled(false);
+        }
+
+        Component[] componentsPanel6 = jPanel6.getComponents();
+        for(int i = 0; i < componentsPanel6.length; i++) {
+            componentsPanel6[i].setEnabled(false);
+        }
+        
     }
 
     /**
@@ -121,6 +131,21 @@ public class windowMain extends javax.swing.JFrame {
         Button_SeuillageMulti = new javax.swing.JButton();
         TextField_SeuillageMulti1 = new javax.swing.JTextField();
         TextField_SeuillageMulti2 = new javax.swing.JTextField();
+        TextField_SeuillageMulti3 = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        Button_Median = new javax.swing.JButton();
+        Button_Moyen = new javax.swing.JButton();
+        Button_Gaussien = new javax.swing.JButton();
+        Button_Laplacien = new javax.swing.JButton();
+        Button_Kirsch = new javax.swing.JButton();
+        Button_Sobel = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        Button_Prewitt = new javax.swing.JButton();
+        Button_Roberts = new javax.swing.JButton();
+        Button_Erosion = new javax.swing.JButton();
+        Button_Dilatation = new javax.swing.JButton();
+        Button_Ouverture = new javax.swing.JButton();
+        Button_Fermeture = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -390,11 +415,12 @@ public class windowMain extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Button_Seuillage, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(Button_Seuillage, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addComponent(TextField_SeuillageSimple)
-                    .addComponent(Button_SeuillageMulti, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(Button_SeuillageMulti, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addComponent(TextField_SeuillageMulti1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TextField_SeuillageMulti2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(TextField_SeuillageMulti2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TextField_SeuillageMulti3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -410,6 +436,156 @@ public class windowMain extends javax.swing.JFrame {
                 .addComponent(TextField_SeuillageMulti1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TextField_SeuillageMulti2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TextField_SeuillageMulti3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+
+        Button_Median.setText("Filtre médian");
+        Button_Median.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_MedianActionPerformed(evt);
+            }
+        });
+
+        Button_Moyen.setText("Filtre moyen");
+        Button_Moyen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_MoyenActionPerformed(evt);
+            }
+        });
+
+        Button_Gaussien.setText("Filtre gaussien");
+        Button_Gaussien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_GaussienActionPerformed(evt);
+            }
+        });
+
+        Button_Laplacien.setText("Filtre laplacien");
+        Button_Laplacien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_LaplacienActionPerformed(evt);
+            }
+        });
+
+        Button_Kirsch.setText("Filtre de Kirsch");
+        Button_Kirsch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_KirschActionPerformed(evt);
+            }
+        });
+
+        Button_Sobel.setText("Filtre de Sobel");
+        Button_Sobel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_SobelActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Button_Median, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(Button_Moyen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_Gaussien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_Laplacien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_Kirsch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_Sobel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Button_Median)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Moyen)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Gaussien)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Laplacien)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Kirsch)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Sobel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        Button_Prewitt.setText("Filtre de Prewitt");
+        Button_Prewitt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_PrewittActionPerformed(evt);
+            }
+        });
+
+        Button_Roberts.setText("Filtre de Roberts");
+        Button_Roberts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_RobertsActionPerformed(evt);
+            }
+        });
+
+        Button_Erosion.setText("Erosion");
+        Button_Erosion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ErosionActionPerformed(evt);
+            }
+        });
+
+        Button_Dilatation.setText("Dilatation");
+        Button_Dilatation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_DilatationActionPerformed(evt);
+            }
+        });
+
+        Button_Ouverture.setText("Ouverture");
+        Button_Ouverture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_OuvertureActionPerformed(evt);
+            }
+        });
+
+        Button_Fermeture.setText("Fermeture");
+        Button_Fermeture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_FermetureActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Button_Prewitt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_Roberts, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addComponent(Button_Erosion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_Dilatation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_Ouverture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_Fermeture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Button_Prewitt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Roberts)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Erosion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Dilatation)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Ouverture)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Fermeture)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -461,16 +637,20 @@ public class windowMain extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -486,7 +666,9 @@ public class windowMain extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -533,6 +715,16 @@ public class windowMain extends javax.swing.JFrame {
             Component[] componentsPanel4 = jPanel4.getComponents();
             for(int i = 0; i < componentsPanel4.length; i++) {
                 componentsPanel4[i].setEnabled(true);
+            }
+            
+            Component[] componentsPanel5 = jPanel5.getComponents();
+            for(int i = 0; i < componentsPanel5.length; i++) {
+                componentsPanel5[i].setEnabled(true);
+            }
+
+            Component[] componentsPanel6 = jPanel6.getComponents();
+            for(int i = 0; i < componentsPanel6.length; i++) {
+                componentsPanel6[i].setEnabled(true);
             }
 	}
         else
@@ -588,6 +780,16 @@ public class windowMain extends javax.swing.JFrame {
         Component[] componentsPanel4 = jPanel4.getComponents();
         for(int i = 0; i < componentsPanel4.length; i++) {
             componentsPanel4[i].setEnabled(false);
+        }
+        
+        Component[] componentsPanel5 = jPanel5.getComponents();
+        for(int i = 0; i < componentsPanel5.length; i++) {
+            componentsPanel5[i].setEnabled(false);
+        }
+        
+        Component[] componentsPanel6 = jPanel6.getComponents();
+        for(int i = 0; i < componentsPanel6.length; i++) {
+            componentsPanel6[i].setEnabled(false);
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -736,10 +938,84 @@ public class windowMain extends javax.swing.JFrame {
         }
         else
         {
-            MultiThresholding mt = new MultiThresholding(getBufferedSource(), Integer.parseInt(TextField_SeuillageMulti1.getText()),Integer.parseInt(TextField_SeuillageMulti2.getText()));
+            MultiThresholding mt = new MultiThresholding(getBufferedSource(), Integer.parseInt(TextField_SeuillageMulti1.getText()),Integer.parseInt(TextField_SeuillageMulti2.getText()),Integer.parseInt(TextField_SeuillageMulti3.getText()));
             setBufferedDestination(mt.getMultiThresholding());
         }
     }//GEN-LAST:event_Button_SeuillageMultiActionPerformed
+
+    private void Button_SobelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SobelActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        SobelFilter sf = new SobelFilter(gs.getImgToGray());
+        setBufferedDestination(sf.getSobelFilter());
+    }//GEN-LAST:event_Button_SobelActionPerformed
+
+    private void Button_MedianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_MedianActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        MedianFilter mf = new MedianFilter(gs.getImgToGray());
+        setBufferedDestination(mf.getMedianFilter());
+    }//GEN-LAST:event_Button_MedianActionPerformed
+
+    private void Button_MoyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_MoyenActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        MeanFilter mf = new MeanFilter(gs.getImgToGray());
+        setBufferedDestination(mf.getMeanFilter());
+    }//GEN-LAST:event_Button_MoyenActionPerformed
+
+    private void Button_GaussienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_GaussienActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        GaussienFilter gf = new GaussienFilter(gs.getImgToGray());
+        setBufferedDestination(gf.getGaussienFilter());
+    }//GEN-LAST:event_Button_GaussienActionPerformed
+
+    private void Button_LaplacienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_LaplacienActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        LaplacienFilter lf = new LaplacienFilter(gs.getImgToGray());
+        setBufferedDestination(lf.getLaplacienFilter());
+    }//GEN-LAST:event_Button_LaplacienActionPerformed
+
+    private void Button_KirschActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_KirschActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        KirschFilter kf = new KirschFilter(gs.getImgToGray());
+        setBufferedDestination(kf.getKirschFilter());
+    }//GEN-LAST:event_Button_KirschActionPerformed
+
+    private void Button_PrewittActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_PrewittActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        PrewittFilter pf = new PrewittFilter(gs.getImgToGray());
+        setBufferedDestination(pf.getPrewittFilter());
+    }//GEN-LAST:event_Button_PrewittActionPerformed
+
+    private void Button_RobertsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_RobertsActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        RobertsFilter rf = new RobertsFilter(gs.getImgToGray());
+        setBufferedDestination(rf.getRobertsFilter());
+    }//GEN-LAST:event_Button_RobertsActionPerformed
+
+    private void Button_ErosionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ErosionActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        Erosion e = new Erosion(gs.getImgToGray());
+        setBufferedDestination(e.getErosion());
+    }//GEN-LAST:event_Button_ErosionActionPerformed
+
+    private void Button_DilatationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_DilatationActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        Dilatation d = new Dilatation(gs.getImgToGray());
+        setBufferedDestination(d.getDilatation());
+    }//GEN-LAST:event_Button_DilatationActionPerformed
+
+    private void Button_OuvertureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_OuvertureActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        Erosion e = new Erosion(gs.getImgToGray());
+        Dilatation d = new Dilatation(e.getErosion());
+        setBufferedDestination(d.getDilatation());
+    }//GEN-LAST:event_Button_OuvertureActionPerformed
+
+    private void Button_FermetureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_FermetureActionPerformed
+        GreyScale gs = new GreyScale(getBufferedSource());
+        Dilatation d = new Dilatation(gs.getImgToGray());
+        Erosion e = new Erosion(d.getDilatation());
+        setBufferedDestination(e.getErosion());
+    }//GEN-LAST:event_Button_FermetureActionPerformed
 
     
     public BufferedImage convertToBuffered(Image img)
@@ -775,7 +1051,7 @@ public class windowMain extends javax.swing.JFrame {
         Graphics g = imageDestination.getGraphics();
         g.drawImage(dest, 0, 0, this);
         g.dispose();
-        
+
         ImageIcon imageIcon = new ImageIcon(dest); 
         imageDest.setIcon(imageIcon);
     }
@@ -820,19 +1096,32 @@ public class windowMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonSetSize;
     private javax.swing.JButton ButtonSetSizeBox;
+    private javax.swing.JButton Button_Dilatation;
+    private javax.swing.JButton Button_Erosion;
     private javax.swing.JButton Button_Expansion;
+    private javax.swing.JButton Button_Fermeture;
+    private javax.swing.JButton Button_Gaussien;
     private javax.swing.JButton Button_GreyScale;
     private javax.swing.JButton Button_Histogram;
+    private javax.swing.JButton Button_Kirsch;
+    private javax.swing.JButton Button_Laplacien;
+    private javax.swing.JButton Button_Median;
+    private javax.swing.JButton Button_Moyen;
+    private javax.swing.JButton Button_Ouverture;
     private javax.swing.JButton Button_Palette;
+    private javax.swing.JButton Button_Prewitt;
     private javax.swing.JButton Button_ROI;
+    private javax.swing.JButton Button_Roberts;
     private javax.swing.JButton Button_Seuillage;
     private javax.swing.JButton Button_SeuillageMulti;
+    private javax.swing.JButton Button_Sobel;
     private javax.swing.JComboBox<String> ComboBoxZoom;
     private javax.swing.JButton Reset;
     private javax.swing.JSpinner SpinnerHeight;
     private javax.swing.JSpinner SpinnerWidth;
     private javax.swing.JTextField TextField_SeuillageMulti1;
     private javax.swing.JTextField TextField_SeuillageMulti2;
+    private javax.swing.JTextField TextField_SeuillageMulti3;
     private javax.swing.JTextField TextField_SeuillageSimple;
     private javax.swing.JTextField TextField_X;
     private javax.swing.JTextField TextField_Y;
@@ -856,6 +1145,8 @@ public class windowMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     public javax.swing.JPanel jPanel4;
+    public javax.swing.JPanel jPanel5;
+    public javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
