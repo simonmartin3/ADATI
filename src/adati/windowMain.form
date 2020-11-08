@@ -258,9 +258,10 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="Button_Option" max="32767" attributes="0"/>
                       <Component id="Button_Palette" pref="225" max="32767" attributes="0"/>
                       <Component id="Button_Histogram" max="32767" attributes="0"/>
                       <Component id="Button_Expansion" alignment="0" max="32767" attributes="0"/>
@@ -299,6 +300,8 @@
                       <Component id="TextField_Y" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_Option" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -356,6 +359,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Y :"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Option">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Chainage simple"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_OptionActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -487,6 +498,7 @@
                       <Component id="TextField_SeuillageMulti1" alignment="1" max="32767" attributes="0"/>
                       <Component id="TextField_SeuillageMulti2" alignment="1" max="32767" attributes="0"/>
                       <Component id="TextField_SeuillageMulti3" alignment="1" max="32767" attributes="0"/>
+                      <Component id="Button_OptionParallele" alignment="0" pref="200" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -507,7 +519,9 @@
                   <Component id="TextField_SeuillageMulti2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="TextField_SeuillageMulti3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="54" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="Button_OptionParallele" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -536,6 +550,14 @@
         <Component class="javax.swing.JTextField" name="TextField_SeuillageMulti2">
         </Component>
         <Component class="javax.swing.JTextField" name="TextField_SeuillageMulti3">
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_OptionParallele">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Chainage parall&#xe8;le"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_OptionParalleleActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

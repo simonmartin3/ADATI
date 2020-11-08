@@ -6,6 +6,8 @@
 package adati;
 
 import Filter.*;
+import Option.Chainage;
+import Option.ChainageParallele;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -115,6 +117,7 @@ public class windowMain extends javax.swing.JFrame {
         TextField_Y = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        Button_Option = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         SpinnerWidth = new javax.swing.JSpinner();
@@ -132,6 +135,7 @@ public class windowMain extends javax.swing.JFrame {
         TextField_SeuillageMulti1 = new javax.swing.JTextField();
         TextField_SeuillageMulti2 = new javax.swing.JTextField();
         TextField_SeuillageMulti3 = new javax.swing.JTextField();
+        Button_OptionParallele = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         Button_Median = new javax.swing.JButton();
         Button_Moyen = new javax.swing.JButton();
@@ -274,6 +278,13 @@ public class windowMain extends javax.swing.JFrame {
 
         jLabel6.setText("Y :");
 
+        Button_Option.setText("Chainage simple");
+        Button_Option.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_OptionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -281,6 +292,7 @@ public class windowMain extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Button_Option, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Button_Palette, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                     .addComponent(Button_Histogram, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Button_Expansion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -311,6 +323,8 @@ public class windowMain extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TextField_Y, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_Option)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -408,6 +422,13 @@ public class windowMain extends javax.swing.JFrame {
             }
         });
 
+        Button_OptionParallele.setText("Chainage parallèle");
+        Button_OptionParallele.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_OptionParalleleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -420,7 +441,8 @@ public class windowMain extends javax.swing.JFrame {
                     .addComponent(Button_SeuillageMulti, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addComponent(TextField_SeuillageMulti1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(TextField_SeuillageMulti2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TextField_SeuillageMulti3, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(TextField_SeuillageMulti3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Button_OptionParallele, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -438,7 +460,9 @@ public class windowMain extends javax.swing.JFrame {
                 .addComponent(TextField_SeuillageMulti2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TextField_SeuillageMulti3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Button_OptionParallele)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Button_Median.setText("Filtre médian");
@@ -1017,6 +1041,22 @@ public class windowMain extends javax.swing.JFrame {
         setBufferedDestination(e.getErosion());
     }//GEN-LAST:event_Button_FermetureActionPerformed
 
+    private void Button_OptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_OptionActionPerformed
+        try {
+            Chainage c = new Chainage(getBufferedSource());
+        } catch (InterruptedException ex) {
+            Logger.getLogger(windowMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Button_OptionActionPerformed
+
+    private void Button_OptionParalleleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_OptionParalleleActionPerformed
+        try {
+            ChainageParallele c = new ChainageParallele(getBufferedSource());
+        } catch (InterruptedException ex) {
+            Logger.getLogger(windowMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Button_OptionParalleleActionPerformed
+
     
     public BufferedImage convertToBuffered(Image img)
     {
@@ -1107,6 +1147,8 @@ public class windowMain extends javax.swing.JFrame {
     private javax.swing.JButton Button_Laplacien;
     private javax.swing.JButton Button_Median;
     private javax.swing.JButton Button_Moyen;
+    private javax.swing.JButton Button_Option;
+    private javax.swing.JButton Button_OptionParallele;
     private javax.swing.JButton Button_Ouverture;
     private javax.swing.JButton Button_Palette;
     private javax.swing.JButton Button_Prewitt;
